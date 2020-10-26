@@ -11,6 +11,9 @@ namespace PozitronDev.SpecSampleApp.Core.Specifications
     {
         public CustomerSpec(CustomerFilter filter)
         {
+            if (filter.LoadChildren)
+                Query.Include(x => x.Stores);
+
             if (filter.IsPagingEnabled)
                 Query.Skip(PaginationHelper.CalculateSkip(filter.PageSize, filter.Page))
                      .Take(PaginationHelper.CalculateTake(filter.Page));
